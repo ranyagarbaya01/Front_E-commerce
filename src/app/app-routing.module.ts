@@ -10,6 +10,13 @@ import { ListProduitComponent } from './shop/list-produit/list-produit.component
 import { ShopComponent } from './shop/shop.component';
 import { BasketComponent } from './basket/basket.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { AddEditTypeComponent } from './parametrage/add-edit-type/add-edit-type.component';
+import { ListTypeComponent } from './parametrage/list-type/list-type.component';
+import { ListFamilleComponent } from './parametrage/list-famille/list-famille.component';
+import { AddEditFamilleComponent } from './parametrage/add-edit-famille/add-edit-famille.component';
+import { AddEditUserComponent } from './parametrage/add-edit-user/add-edit-user.component';
+import { ListUserComponent } from './parametrage/list-user/list-user.component';
+import { ListClientComponent } from './parametrage/list-client/list-client.component';
 
 const routes: Routes = [
   {
@@ -29,9 +36,56 @@ const routes: Routes = [
     path: 'addproduct', 
     component: AddProductComponent
   },
+
+  {
+    path: 'AddType', 
+    component: AddEditTypeComponent
+  },
+  {
+    path: 'EditType/:id', 
+    component: AddEditTypeComponent
+  },
+  {
+    path: 'AllType', 
+    component: ListTypeComponent
+  },
+
+  {
+    path: 'AddFamille',
+    component: AddEditFamilleComponent
+  },
+  {
+    path: 'EditFamille/:id',
+    component: AddEditFamilleComponent // Correct route with parameter
+  },
+  {
+    path: 'AllFamille',
+    component: ListFamilleComponent
+  },
+
+
+  {
+    path: 'AddUser',
+    component: AddEditUserComponent
+  },
+  {
+    path: 'EditUser/:id',
+    component: AddEditUserComponent 
+  },
+  {
+    path: 'AllUser',
+    component: ListUserComponent
+  },
+  {
+    path: 'clients',
+    component: ListClientComponent
+  },
+
+
+
   {
     path: 'editproduct/:id', 
-    component: AddProductComponent
+    loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
   },  {
     path: 'allproduct', 
     component: ListProduitComponent
@@ -39,28 +93,19 @@ const routes: Routes = [
   {
     path: 'server-error', 
     component: ServerErrorComponent
-  },  {
-    path: 'shop', 
-    component: ShopComponent
-  },
-  {
-    path: 'basket', 
-    component: BasketComponent
-  }, {
-    path: 'checkout', 
-    component: CheckoutComponent
   }, 
   {
     path: 'shop', 
     loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
   },
+  
+
   {
-    path: 'basket', 
+    path: 'basket',  
     loadChildren: () => import('./basket/basket.module').then(m => m.BasketModule)
   },
   {
     path: 'checkout', 
-    canActivate: [AuthGuard],
     loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule)
   }, 
    

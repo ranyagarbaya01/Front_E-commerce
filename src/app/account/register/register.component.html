@@ -5,10 +5,12 @@
                 <h1 class="mb-3">Sign up</h1>
             </div>
 
-            <app-text-input [formControl]="registerForm.controls['displayName']"
-                [label]="'Display Name'"></app-text-input>
-            <app-text-input [formControl]="registerForm.controls['email']" [label]="'Email Address'"></app-text-input>
-            <app-text-input [formControl]="registerForm.controls['password']" [label]="'Password'"
+            <app-text-input [formControl]="registerForm.controls['fullName']"
+                [label]="'Nom et Prenom'"></app-text-input>
+                <app-text-input [formControl]="registerForm.controls['phoneNumber']"
+                [label]="'telephone'"></app-text-input>
+            <app-text-input [formControl]="registerForm.controls['email']" [label]="'Address Email'"></app-text-input>
+            <app-text-input [formControl]="registerForm.controls['password']" [label]="'Mot de Passe'"
                 [type]="'password'"></app-text-input>
 
             <ul class="text-danger list-unstyled" *ngIf="errors">
@@ -18,8 +20,7 @@
             </ul>
 
             <div class="d-grid">
-                <button [disabled]="registerForm.invalid" class="btn btn-lg btn-primary mt-3" type="submit">Sign
-                    up</button>
+                <button [disabled]="registerForm.invalid" class="btn btn-lg btn-primary mt-3" type="submit">S'inscrire</button>
             </div>
         </form>
     </div>

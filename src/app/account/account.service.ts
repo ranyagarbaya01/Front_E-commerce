@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, map, of } from 'rxjs';
+import { Observable, ReplaySubject, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Address, User } from '../shared/models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -14,7 +14,18 @@ export class AccountService {
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
+  getToken(): string | null {
+    return localStorage.getItem("token");
+  }
 
+  getUserIdFromToken(): number | null {
+    const token = this.getToken();
+    if (token) {
+      const tokenPayload = JSON.parse(atob(token.split('.')[0]));
+      console.log(tokenPayload.id)
+      return tokenPayload.id;  }
+    return null;
+  }
   loadCurrentUser(token: string | null) {
     if (token == null) {
       this.currentUserSource.next(null);
@@ -24,7 +35,9 @@ export class AccountService {
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
 
-    return this.http.get<User>(this.baseUrl + 'account', {headers}).pipe(
+   const id = this.getUserIdFromToken()
+   console.log(id)
+    return this.http.get<User>(this.baseUrl + `Users/${id}`, {headers}).pipe(
       map(user => {
         if (user) {
           localStorage.setItem('token', user.token);
@@ -37,7 +50,7 @@ export class AccountService {
     )
   }
 
-  login(values: any) {
+login1(values: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', values).pipe(
       map(user => {
         localStorage.setItem('token', user.token);
@@ -46,8 +59,20 @@ export class AccountService {
     )
   }
 
+    login(values: any){
+      return this.http.post<User>(this.baseUrl+"Auth/authenticate", values).pipe(
+        map(user => {         
+        
+
+          localStorage.setItem('token', user.token);
+          console.log(user)
+          this.currentUserSource.next(user);
+          console.log(this.currentUserSource)
+        })
+      );
+    }
   register(values: any) {
-    return this.http.post<User>(this.baseUrl + 'account/register', values).pipe(
+    return this.http.post<User>(this.baseUrl + 'Users', values).pipe(
       map(user => {
         localStorage.setItem('token', user.token);
         this.currentUserSource.next(user);
@@ -62,7 +87,7 @@ export class AccountService {
   }
 
   checkEmailExists(email: string) {
-    return this.http.get<boolean>(this.baseUrl + 'account/emailExists?email=' + email);
+    return this.http.get<boolean>(this.baseUrl + 'Users/checkEmailExists/' + email);
   }
 
   getUserAddress() {

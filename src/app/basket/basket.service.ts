@@ -43,9 +43,21 @@ export class BasketService {
         this.calculateTotals();
       }
     })*/
+      const s: string = localStorage.getItem("basket") ?? '{}'; 
+      const jsonObject: Basket = JSON.parse(s);
+      
+      this.basketSource.next(jsonObject);
+      
+
   }
 
-  setBasket(basket: Basket) {        this.basketSource.next(basket);        this.calculateTotals();
+  setBasket(basket: Basket) {        
+    this.basketSource.next(basket);   
+         this.calculateTotals();  
+         let jsonString: string = JSON.stringify(basket);
+
+localStorage.setItem("basket" ,jsonString )
+this.basketSource.next(basket);   
 
 /*
     return this.http.post<Basket>(this.baseUrl + 'basket', basket).subscribe({
@@ -115,9 +127,9 @@ export class BasketService {
     return {
       id: item.id,
       productName: item.name,
-      price: item.prix,
+      price: item.prixTTC,
       quantity: 0,
-      pictureUrl: item.name,
+      pictureUrl: item.imageUrl,
       brand: item.famille,
       type: item.type
     }

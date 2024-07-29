@@ -1,13 +1,13 @@
 <div class="container">
     <div class="row" *ngIf="product">
         <div class="col-6">
-            <img src="https://cdn3d.iconscout.com/3d/premium/thumb/product-5806313-4863042.png?f=webp" alt="{{product.name}}" class="w-100">
+            <img src="https://localhost:7179{{product.imageUrl}}" alt="{{product.name}}" class="w-100">
         </div>
         <div class="col-6 mt-5">
             <h2>{{product.name}}</h2>
-            <p style="font-size: 2em;">{{product.prix | currency}}</p>
+            <p style="font-size: 2em;">  {{product.prixTTC}} TND</p>
             <h5 class="text-primary mb-3" *ngIf="quantityInBasket > 0">
-                You have {{quantityInBasket}} of this item in your basket
+                Vous avez {{quantityInBasket}} de cet article dans votre panier
             </h5>
             <div class="d-flex justify-content-start align-items-center">
                 <ng-container *ngIf="quantity > 0; else disabledIcon">

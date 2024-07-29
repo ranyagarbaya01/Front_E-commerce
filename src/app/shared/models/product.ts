@@ -3,14 +3,16 @@ export interface Product {
     id: number;
     name: string;
     description: string;
-    prix: number;
+    prixHT: number;
+    prixTTC: number;
+    tva: number;
     familleId?: number;
     typeId?: number;
     famille?: any; 
-    type?: any; 
+    type?: any;   imageUrl: string;
+
   }
-  
-  // pagination.ts
+
   export interface Pagination<T> {
     pageIndex: number;
     pageSize: number;

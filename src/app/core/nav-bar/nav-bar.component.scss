@@ -25,3 +25,43 @@ a {
 .logo {
     cursor: pointer;
 }
+
+/* Dropdown button styling */
+.btn-dropdown {
+    background-color: #ffffff; /* White background */
+    color: #000000; /* Black text color */
+    border: 1px solid #dcdcdc; /* Border color */
+    font-size: 1.25rem; /* Font size for consistency */
+    font-weight: 400; /* Font weight for consistency */
+    text-transform: none; /* Ensure text is not transformed to uppercase */
+}
+
+/* Ensure icon is black */
+.btn-dropdown .fa-cog {
+    color: #000000; /* Black icon color */
+}
+
+/* Dropdown menu styling */
+.dropdown-menu-white {
+    background-color: #ffffff; /* White background */
+    border-color: #dcdcdc; /* Border color */
+}
+
+/* Dropdown menu item styling */
+.dropdown-menu-white .dropdown-item {
+    color: #000000; /* Black text color */
+    font-size: 1.25rem; /* Font size for consistency */
+    font-weight: 400; /* Font weight for consistency */
+}
+
+/* Hover styling for dropdown items */
+.dropdown-menu-white .dropdown-item:hover {
+    background-color: #f8f9fa; /* Light background color on hover */
+    color: orange; /* Text color on hover */
+}
+
+/* Ensure consistent font size and weight for all links */
+.position-relative.fs-5 {
+    font-size: 1.25rem; /* Adjust font size if needed */
+    font-weight: 400; /* Regular font weight */
+}

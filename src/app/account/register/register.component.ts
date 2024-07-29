@@ -17,9 +17,12 @@ export class RegisterComponent {
   complexPassword = "(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$"
   
   registerForm = this.fb.group({
-    displayName: ['', Validators.required],
+    id : 0,
+    fullName: ['', Validators.required],
+    phoneNumber: ['', Validators.required],
     email: ['', [Validators.required, Validators.email], [this.validateEmailNotTaken()]],
     password: ['', [Validators.required, Validators.pattern(this.complexPassword)]],
+    type : 0
   })  
   
   onSubmit() {
@@ -36,7 +39,7 @@ export class RegisterComponent {
         take(1),
         switchMap(() => {
           return this.accountService.checkEmailExists(control.value).pipe(
-            map(result => result ? {emailExists: true} : null),
+            map(result => result ? {emailExists: true } :null),
             finalize(() => control.markAsTouched())
           )
         })

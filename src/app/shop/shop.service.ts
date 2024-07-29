@@ -7,6 +7,7 @@ import { Type } from '../shared/models/product';
 import { ShopParams } from '../shared/models/product';
 import { Observable, map, of, tap } from 'rxjs';
 import { isBs4 } from 'ngx-bootstrap/utils/theme-provider';
+import { User } from '../shared/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class ShopService {
   products: Product[] = [];
   brands: Brand[] = [];
   types: Type[] = [];
+  users: User[] = [];
   pagination?: Pagination<Product[]>;
   shopParams = new ShopParams();
   productCache = new Map<string, Pagination<Product[]>>();
@@ -72,37 +74,112 @@ export class ShopService {
     return this.http.get<Product>(this.baseUrl + 'Produit/' + id);
   }
   
-  getBrands(): Observable<Brand[]> {
-    if (this.brands.length > 0) {
-      return of(this.brands);
-    }
-
-    return this.http.get<Brand[]>(`${this.baseUrl}TypeFamille/Famille`).pipe(
-      tap((brands) => (this.brands = brands))
-    );
+ 
+  addProduct(formData: FormData): Observable<Product> {
+    return this.http.post<Product>(`${this.baseUrl}Produit`, formData);
   }
 
-  getTypes(): Observable<Type[]> {
-    if (this.types.length > 0) {
-      return of(this.types);
-    }
-
-    return this.http.get<Type[]>(`${this.baseUrl}TypeFamille/types`).pipe(
-      tap((types) => (this.types = types))
-    );
-  }
-
-  addProduct(produit : Product): Observable<any> {
-return this.http.post(`${this.baseUrl}Produit` , produit) ;
-  }
-
-  updateProduct(id : number ,produit : Product){
-    return this.http.put(`${this.baseUrl}Produit/${id}` , produit) ;
-
+  updateProduct(id: number, formData: FormData): Observable<Product> {
+    return this.http.put<Product>(`${this.baseUrl}Produit/${id}`, formData);
   }
   deleteproduct(id : number){
     return this.http.delete(`${this.baseUrl}Produit/${id}`)
   }
 
- 
+
+  //CRUD Type
+  getTypes(search: string = ''): Observable<Type[]> {
+    if (this.types.length > 0 && !search) {
+      return of(this.types);
+    }
+
+    return this.http.get<Type[]>(`${this.baseUrl}TypeFamille/types/?search=${search}`).pipe(
+      tap((types) => {
+        if (!search) {
+          this.types = types;
+        }
+      })
+    );
+  }
+  
+
+  getTypeById(id: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}TypeFamille/types/${id}`);
+  }
+
+  addType(type: Type): Observable<Type> {
+    return this.http.post<Type>(`${this.baseUrl}TypeFamille/types`, type);
+  }
+
+  updateType(id: number, typeData: Type): Observable<Type> {
+    return this.http.put<Type>(`${this.baseUrl}TypeFamille/types/${id}`, typeData);
+  }
+
+  deleteType(id: number) {
+    return this.http.delete(`${this.baseUrl}TypeFamille/types/${id}`);
+  }
+
+  //CRUD Brand
+
+  getBrands(search: string = ''): Observable<Brand[]> {
+    if (this.brands.length > 0 && !search) {
+      return of(this.brands);
+    }
+
+    return this.http.get<Brand[]>(`${this.baseUrl}TypeFamille/Famille/?search=${search}`).pipe(
+      tap((brands) => {
+        if (!search) {
+          this.brands = brands;
+        }
+      })
+    );
+  }
+
+  getFamilleById(id: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}TypeFamille/Famille/${id}`);
+  }
+
+  addBrand(brand: Brand): Observable<Brand> {
+    return this.http.post<Brand>(`${this.baseUrl}TypeFamille/Famille`, brand);
+  }
+
+
+  updateBrand(id: number, brand: Brand): Observable<Brand> {
+    return this.http.put<Brand>(`${this.baseUrl}TypeFamille/Famille/${id}`, brand);
+  }
+
+  deleteBrand(id: number) {
+    return this.http.delete(`${this.baseUrl}TypeFamille/Famille/${id}`);
+  }
+
+
+  //CRUD user
+
+  getUser(search: string = ''): Observable<User[]> {
+    if (this.users.length > 0 && !search) {
+      return of(this.users);
+    }
+
+    return this.http.get<User[]>(`${this.baseUrl}Users?search=${search}`).pipe(
+      tap((users) => this.users = users)
+    );
+  }
+
+  getUserById(id: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}Users/${id}`);
+  }
+
+  addUser(user: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}Users`, user);
+  }
+
+  updateUser(id: number, userData: User): Observable<User> {
+    return this.http.put<any>(`${this.baseUrl}Users/${id}`, userData);
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete(`${this.baseUrl}Users/${id}`);
+  }
+
+
 }

@@ -1,6 +1,10 @@
 export interface User {
+    id: number;
+    fullName  :string,
     email: string;
-    displayName: string;
+    password: string;
+    phoneNumber: string,
+    type: number
     token: string;
 }
 
