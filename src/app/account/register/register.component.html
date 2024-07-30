@@ -2,14 +2,14 @@
     <div class="col-3">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="text-center mb-4">
-                <h1 class="mb-3">Sign up</h1>
+                <h1 class="mb-3">Inscription</h1>
             </div>
 
             <app-text-input [formControl]="registerForm.controls['fullName']"
-                [label]="'Nom et Prenom'"></app-text-input>
+                [label]="'Nom et Prénom'"></app-text-input>
                 <app-text-input [formControl]="registerForm.controls['phoneNumber']"
-                [label]="'telephone'"></app-text-input>
-            <app-text-input [formControl]="registerForm.controls['email']" [label]="'Address Email'"></app-text-input>
+                [label]="'Numéro de téléphone'"></app-text-input>
+            <app-text-input [formControl]="registerForm.controls['email']" [label]="'Adresse Email'"></app-text-input>
             <app-text-input [formControl]="registerForm.controls['password']" [label]="'Mot de Passe'"
                 [type]="'password'"></app-text-input>
 

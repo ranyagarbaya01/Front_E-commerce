@@ -14,9 +14,11 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-white" aria-labelledby="dropdownMenuButton1">
                 <li><a routerLink="/allproduct" class="dropdown-item" routerLinkActive="active">
-                    <i class="fa fa-solid fa-product-hunt me-2"></i>Produit</a></li>
-                <li><a routerLink="/AllType" class="dropdown-item" routerLinkActive="active">Type</a></li>
-                <li><a routerLink="/AllFamille" class="dropdown-item" routerLinkActive="active">Famille</a></li>
+                    <i class="fas fa-box me-2"></i>Produit</a></li>
+                <li><a routerLink="/AllType" class="dropdown-item" routerLinkActive="active">
+                    <i class="fa fa-solid fa-tags me-2"></i>Type</a></li>
+                <li><a routerLink="/AllFamille" class="dropdown-item" routerLinkActive="active">
+                    <i class="fa fa-solid fa-list-alt me-2"></i>Famille</a></li>
                 <li><a routerLink="/AllUser" class="dropdown-item" routerLinkActive="active">
                     <i class="fa fa-solid fa-user me-2"></i>Utilisateurs</a></li>
             </ul>
@@ -27,9 +29,12 @@
                 <span class="dropdown-toggle-icon"></span> 
             </button>
             <ul class="dropdown-menu dropdown-menu-white" aria-labelledby="dropdownMenuButton1">
-                <li><a routerLink="/allproduct" class="dropdown-item" routerLinkActive="active">Commandes</a></li>
-                <li><a routerLink="/AllType" class="dropdown-item" routerLinkActive="active">Factures</a></li>
-                <li><a routerLink="/clients" class="dropdown-item" routerLinkActive="active"> <i class="fa fa-solid fa-user me-2"></i>Clients</a></li>
+                <li><a routerLink="/allproduct" class="dropdown-item" routerLinkActive="active">
+                    <i class="fas fa-receipt me-2"></i>Commandes</a></li>
+                <li><a routerLink="/AllType" class="dropdown-item" routerLinkActive="active">
+                    <i class="fas fa-file-invoice me-2"></i>Factures</a></li>
+                <li><a routerLink="/clients" class="dropdown-item" routerLinkActive="active"> 
+                    <i class="fa fa-solid fa-user me-2"></i>Clients</a></li>
             </ul>
         </div>
 
@@ -44,8 +49,8 @@
         </a>
 
         <ng-container *ngIf="(accountService.currentUser$ | async) === null">
-            <a routerLink="/account/login" class="btn btn-outline-secondary me-2">Se connecter</a>
-            <a routerLink="/account/register" class="btn btn-outline-secondary me-3">S'inscrire</a>
+            <a routerLink="/account/login" class="btn btn-outline-secondary me-2">Connexion</a>
+            <a routerLink="/account/register" class="btn btn-outline-secondary me-3">Inscription</a>
         </ng-container>
         
         <ng-container *ngIf="accountService.currentUser$ | async as user">
