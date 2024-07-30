@@ -40,14 +40,14 @@ export class BasketService {
    /* return this.http.get<Basket>(this.baseUrl + 'basket?id=' + id).subscribe({
       next: basket => {
         this.basketSource.next(basket);
-        this.calculateTotals();
       }
     })*/
       const s: string = localStorage.getItem("basket") ?? '{}'; 
       const jsonObject: Basket = JSON.parse(s);
       
       this.basketSource.next(jsonObject);
-      
+              this.calculateTotals();
+
 
   }
 
@@ -128,6 +128,9 @@ this.basketSource.next(basket);
       id: item.id,
       productName: item.name,
       price: item.prixTTC,
+      prixTTC: item.prixTTC,
+      prixHT: item.prixHT,
+      tva: item.tva,
       quantity: 0,
       pictureUrl: item.imageUrl,
       brand: item.famille,

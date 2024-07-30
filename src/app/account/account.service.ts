@@ -17,15 +17,19 @@ export class AccountService {
   getToken(): string | null {
     return localStorage.getItem("token");
   }
-
+  
   getUserIdFromToken(): number | null {
-    const token = this.getToken();
+    const token = this.getToken();     
+
     if (token) {
-      const tokenPayload = JSON.parse(atob(token.split('.')[0]));
-      console.log(tokenPayload.id)
-      return tokenPayload.id;  }
+      const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+      console.log(tokenPayload.sub[1]);
+      return parseInt(tokenPayload.sub[1], 10); 
+
+    }
     return null;
   }
+  
   loadCurrentUser(token: string | null) {
     if (token == null) {
       this.currentUserSource.next(null);
@@ -36,18 +40,7 @@ export class AccountService {
     headers = headers.set('Authorization', `Bearer ${token}`);
 
    const id = this.getUserIdFromToken()
-   console.log(id)
-    return this.http.get<User>(this.baseUrl + `Users/${id}`, {headers}).pipe(
-      map(user => {
-        if (user) {
-          localStorage.setItem('token', user.token);
-          this.currentUserSource.next(user);
-          return user;
-        } else {
-          return null;
-        }
-      })
-    )
+    return this.http.get<User>(this.baseUrl + `Users/${id}`, {headers})
   }
 
 login1(values: any) {
@@ -65,6 +58,7 @@ login1(values: any) {
         
 
           localStorage.setItem('token', user.token);
+          
           console.log(user)
           this.currentUserSource.next(user);
           console.log(this.currentUserSource)
@@ -96,5 +90,22 @@ login1(values: any) {
 
   updateUserAddress(address: Address) {
     return this.http.put(this.baseUrl + 'account/address', address);
+  }
+
+
+  getcurentuserfromlocalstorage(){
+    const s: string = localStorage.getItem("user") ?? '{}'; 
+    const jsonObject: User = JSON.parse(s);
+    
+    this.currentUserSource.next(jsonObject);
+  }
+
+  getcurentuservalue(){
+    return this.currentUserSource ;
+  }
+  setuserinlocalstorage(user : User){
+    let jsonString: string = JSON.stringify(user);
+    localStorage.setItem("user" ,jsonString )
+
   }
 }

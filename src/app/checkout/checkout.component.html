@@ -9,11 +9,9 @@
                     <app-checkout-delivery [checkoutForm]="checkoutForm"></app-checkout-delivery>
                 </cdk-step>
                 <cdk-step [label]="'Revenue'">
-                    <app-checkout-review [appStepper]="appStepper"></app-checkout-review>
+                    <app-checkout-review [checkoutForm]="checkoutForm" [appStepper]="appStepper"></app-checkout-review>
                 </cdk-step>
-                <cdk-step [label]="'Paiement'" [completed]="checkoutForm.get('paymentForm')?.valid">
-                    <app-checkout-payment [checkoutForm]="checkoutForm"></app-checkout-payment>
-                </cdk-step>
+              
             </app-stepper>
         </div>
         <div class="col-4">

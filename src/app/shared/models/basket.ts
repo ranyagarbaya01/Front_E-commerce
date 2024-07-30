@@ -4,6 +4,9 @@ export interface BasketItem {
     id: number
     productName: string
     price: number
+    prixHT?: number;
+    prixTTC?: number;
+    tva?: number;
     quantity: number
     pictureUrl: string
     brand: string

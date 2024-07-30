@@ -26,6 +26,8 @@ export class CheckoutComponent implements OnInit {
       state: ['', Validators.required],
       zipcode: ['', Validators.required],
     }),
+    iduser : this.accountService.getUserIdFromToken(),
+    basket : this.basketService.getCurrentBasketValue(),
     deliveryForm: this.fb.group({
       deliveryMethod: ['', Validators.required]
     }),
